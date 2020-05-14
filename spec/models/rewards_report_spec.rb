@@ -10,8 +10,8 @@ RSpec.describe RewardsReport do
       rewards = [rewardOne.pucharse_count, rewardTwo.pucharse_count, rewardThree.pucharse_count]
       total = rewards.reduce(0) { |total, reward| total + reward }
 
-      expect(:notify).to receive(total)
       expect(total).to eq 200
+      expect(:notify).to receive(total)
     end
   end
 end
