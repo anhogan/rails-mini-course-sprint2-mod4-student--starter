@@ -43,20 +43,18 @@ RSpec.describe Employee, type: :model do
 
   describe "Scopes" do
     before do
-      Employee.create!(
-        { first_name: "First", last_name: "Employee", rewards_balance: 0 },
-        { first_name: "Second", last_name: "Employee", rewards_balance: 10 },
-        { first_name: "Third", last_name: "Employee", rewards_balance: -5 },
-        { first_name: "Fourth", last_name: "Employee", rewards_balance: nil },
-      )
+      Employee.create!( { first_name: "First", last_name: "Employee", rewards_balance: 0 } )
+      Employee.create!( { first_name: "Second", last_name: "Employee", rewards_balance: 10 } )
+      Employee.create!( { first_name: "Third", last_name: "Employee", rewards_balance: -5 } )
+      Employee.create!( { first_name: "Fourth", last_name: "Employee", rewards_balance: nil } )
     end
 
     it "Returns zero_balance Scope Results" do
       results = Employee.zero_balance
 
       expect(results.count).to eq 2
-      expect(results[1].rewards_balance).to eq 10
-      expect(results.last.rewards_balance).to be_nil
+      expect(results.first.rewards_balance).to eq 0
+      expect(results.last.rewards_balance).to eq -5
     end
   end
 
