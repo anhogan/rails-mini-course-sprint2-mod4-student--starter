@@ -37,7 +37,7 @@ RSpec.describe Employee, type: :model do
     it "Has Expected Attributes" do
       employee = Employee.new(first_name: "New", last_name: "Employee", rewards_balance: nil).attribute_names
 
-      expect(employee).to contain_exactly("first_name", "last_name", "rewards_balance", "created_at", "updated_at")
+      expect(employee).to contain_exactly("id", "first_name", "last_name", "rewards_balance", "created_at", "updated_at")
     end
   end
 
@@ -65,12 +65,11 @@ RSpec.describe Employee, type: :model do
       employee = Employee.new(first_name: "New", last_name: "Employee", rewards_balance: nil)
       result = employee.full_name
 
-      expect(result).to be "New Employee"
+      expect(result).to eq "New Employee"
     end
 
     it "Validates can_afford? Method" do
       employee = Employee.new(first_name: "New", last_name: "Employee", rewards_balance: 10)
-      rewards_cost
       
       if rewards_cost = 25
         unaffordable = employee.can_afford?(rewards_cost)
