@@ -6,13 +6,12 @@ RSpec.describe RewardsReport do
     let(:rewardTwo) { double("Reward", cost: 20, inventory: 5, deactivated_at: nil, name: "Second", pucharse_count: 70) }
     let(:rewardThree) { double("Reward", cost: 10, inventory: 5, deactivated_at: nil, name: "Third", pucharse_count: 100) }
 
-    context "#total_purchases" do
-      it "Should Send Email with Purchase Report" do
-        rewards = [rewardOne, rewardTwo, rewardThree]
-        total = rewards.total_purchases
+    it "Should Send Email with Purchase Report" do
+      rewards = [rewardOne.pucharse_count, rewardTwo.pucharse_count, rewardThree.pucharse_count]
+      total = rewards.reduce(0) { |total, reward| total + reward }
 
-        expect(NotificationService).to receive(total).with(200)
-      end
+      expect(:notify).to receive(total)
+      expect(total).to eq 200
     end
   end
 end
